@@ -29,8 +29,9 @@ from gobject import timeout_add
 from user_interface import UserInterface
 
 class Timer(object):
-    def __init__(self, work_time=1500):
+    def __init__(self, work_time=1500, rest_time=300):
         self.work_time = work_time
+        self.rest_time = rest_time
         self.time_left = self.work_time
 
         timeout_add(1000, self.update)
@@ -53,7 +54,7 @@ class Timer(object):
 
 
 if __name__ == '__main__':
-    timer = Timer(1500)
+    timer = Timer(1500, 300)
     ui = UserInterface(timer)
     main()
 

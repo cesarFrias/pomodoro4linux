@@ -49,42 +49,50 @@ class UserInterface(object):
         self.status_icon.set_from_file(icon)
 
     def pause_timer(self, widget=None):
-        self.status_icon.set_from_file(REST_ICON)
+        self.current_status = 1
+        self._set_icon()
         self.timer.pause()
 
     def start_timer(self, widget=None):
         self._set_icon()
         self.timer.start()
 
-    def warn_coffe_break(self):
-        dialog = gtk.Dialog('Pomodoro4linux')
-        dialog.set_default_size(180, 120)
-        dialog.set_keep_above(True)
-        dialog.set_sensitive(False)
-        dialog.set_icon_from_file(WORK_ICON)
-        label = gtk.Label('Coffee Break\nRest for 5 minutes.')
-        dialog.vbox.pack_start(label)
-        label.show_now()
-        dialog.show_now()
-        #Só funciona quando quer :(
-        #Only works when it wants
-        self.wait_5_minutes()
-
-        dialog.set_sensitive(True)
-        dialog.run()
-        dialog.destroy()
-
     def update_timer(self):
-        if self.timer.time_left:
-            time_str = 'Pomodoro4linux - %02d:%02d' % (self.timer.time_left / 60, self.timer.time_left % 60)
+        if self.current_status == 0 and self.timer.time_left:
+            time_str = 'Pomodoro4linux - %02d:%02d' % (self.timer.time_left / 60,
+                                                       self.timer.time_left % 60)
             self.status_icon.set_tooltip(time_str)
-        else:
-            self.pause_timer()
+
+        elif self.current_status == 0 and not self.timer.time_left:
             self.warn_coffe_break()
-            self.start_timer()
+
+        elif self.current_status == 1 and self.timer.time_left:
+            self._set_icon()
+            label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % (
+                                self.timer.time_left / 60,
+                                self.timer.time_left % 60)
+            self.label.set_text(label_str)
+
+        elif self.current_status == 1 and not self.timer.time_left:
+            self.current_status = 0
+            self.timer.time_left = self.timer.work_time
 
         return True
 
-    def wait_5_minutes(self):
-        # Sleep for five minutes till de warn goes clickable 
-        sleep(300)
+    def warn_coffe_break(self):
+        self.current_status = 1
+        self.timer.time_left = self.timer.rest_time
+        self.dialog = gtk.Dialog('Pomodoro4linux')
+        self.dialog.set_default_size(180, 120)
+        self.dialog.set_keep_above(True)
+        self.dialog.set_icon_from_file(WORK_ICON)
+        self.label = gtk.Label('Coffee Break\nRest for %02d:%02d minutes.'
+                                % (self.timer.time_left / 60,
+                                self.timer.time_left % 60))
+        self.dialog.vbox.pack_start(self.label)
+        self.label.show_now()
+        self.dialog.show_now()
+        timeout_add(1000, self.update_timer)
+        self.dialog.run()
+        self.dialog.destroy()
+        self.start_timer()
