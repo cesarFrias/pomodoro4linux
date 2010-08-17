@@ -31,9 +31,20 @@ class UserInterface(object):
     def _create_menu(self):
         self.menu = gtk.Menu()
 
+        self.start_item = gtk.ImageMenuItem(gtk.STOCK_MEDIA_PLAY)
+        self.start_item.connect('activate', self.start_timer)
+
+        self.stop_item = gtk.ImageMenuItem(gtk.STOCK_MEDIA_STOP)
+        self.stop_item.connect('activate', self.pause_timer)
+
         self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
+        self.separator = gtk.MenuItem()
+
+        self.menu.append(self.start_item)
+        self.menu.append(self.stop_item)
+        self.menu.append(self.separator)
         self.menu.append(self.quit_item)
         self.status_icon.connect('popup-menu', self._show_menu, self.menu)
 
@@ -54,6 +65,7 @@ class UserInterface(object):
         self.timer.pause()
 
     def start_timer(self, widget=None):
+        self.current_status = 0
         self._set_icon()
         self.timer.start()
 
@@ -72,12 +84,18 @@ class UserInterface(object):
             label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % (
                                 self.timer.time_left / 60,
                                 self.timer.time_left % 60)
-            self.label.set_text(label_str)
+            try:
+                self.label.set_text(label_str)
+            except:
+                pass
 
         elif self.current_status == 1 and not self.timer.time_left:
             self.pause_timer()
-            label_str = 'You should be working now!'
-            self.label.set_text(label_str)
+            self.label_str = 'You should be working now!'
+            try:
+                self.label.set_text(label_str)
+            except:
+                pass
             self.current_status = 0
             self.timer.time_left = self.timer.work_time
 

@@ -1,0 +1,3 @@
+Alterar tamanho do Dialog por causa de diferentes resoluções.
+Acrescentar opçao pause no menu.
+Usar OptionParser para alterar work_time e rest_time.
