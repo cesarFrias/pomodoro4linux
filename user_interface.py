@@ -75,6 +75,7 @@ class UserInterface(object):
             self.label.set_text(label_str)
 
         elif self.current_status == 1 and not self.timer.time_left:
+            self.pause_timer()
             label_str = 'You should be working now!'
             self.label.set_text(label_str)
             self.current_status = 0
