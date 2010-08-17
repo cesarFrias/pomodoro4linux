@@ -59,8 +59,9 @@ class UserInterface(object):
 
     def update_timer(self):
         if self.current_status == 0 and self.timer.time_left:
-            time_str = 'Pomodoro4linux - %02d:%02d' % (self.timer.time_left / 60,
-                                                       self.timer.time_left % 60)
+            time_str = 'Pomodoro4linux - %02d:%02d' % (
+                                                     self.timer.time_left / 60,
+                                                     self.timer.time_left % 60)
             self.status_icon.set_tooltip(time_str)
 
         elif self.current_status == 0 and not self.timer.time_left:
@@ -74,6 +75,8 @@ class UserInterface(object):
             self.label.set_text(label_str)
 
         elif self.current_status == 1 and not self.timer.time_left:
+            label_str = 'You should be working now!'
+            self.label.set_text(label_str)
             self.current_status = 0
             self.timer.time_left = self.timer.work_time
 
