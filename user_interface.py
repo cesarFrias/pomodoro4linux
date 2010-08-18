@@ -90,12 +90,12 @@ class UserInterface(object):
                 pass
 
         elif self.current_status == 1 and not self.timer.time_left:
-            self.pause_timer()
-            self.label_str = 'You should be working now!'
+            label_str = 'You should be working now!'
             try:
                 self.label.set_text(label_str)
             except:
                 pass
+            self.pause_timer()
             self.current_status = 0
             self.timer.time_left = self.timer.work_time
 
