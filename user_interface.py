@@ -59,6 +59,12 @@ class UserInterface(object):
             icon = REST_ICON
         self.status_icon.set_from_file(icon)
 
+    def _set_label(self, label_str):
+        try:
+            self.label.set_text(label_str)
+        except:
+            pass
+
     def pause_timer(self, widget=None):
         self.current_status = 1
         self._set_icon()
@@ -84,17 +90,11 @@ class UserInterface(object):
             label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % (
                                 self.timer.time_left / 60,
                                 self.timer.time_left % 60)
-            try:
-                self.label.set_text(label_str)
-            except:
-                pass
+            self._set_label(label_str)
 
         elif self.current_status == 1 and not self.timer.time_left:
             label_str = 'You should be working now!'
-            try:
-                self.label.set_text(label_str)
-            except:
-                pass
+            self._set_label(label_str)
             self.pause_timer()
             self.current_status = 0
             self.timer.time_left = self.timer.work_time
