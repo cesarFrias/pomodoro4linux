@@ -25,6 +25,7 @@ If you find any bugs or have any suggestions email: cagfrias@gmail.com
 
 from gtk import main
 from gobject import timeout_add
+from optparse import OptionParser
 
 from user_interface import UserInterface
 
@@ -52,9 +53,38 @@ class Timer(object):
 
         return True
 
+def option_parser():
+    usage = "%prog [OPTIONS]"
+    description = """
+%prog to better manage your time, as soon as your work time ends
+starts your rest time. 
+    """
+
+    parser = OptionParser(usage, description=description)
+    parser.add_option(
+        '-w',
+        '--work',
+        action = 'store',
+        type = 'int',
+        dest = 'work_time',
+        help = 'Define the time of each work round',
+        default = 300
+    )
+
+    parser.add_option(
+        '-r',
+        '--rest',
+        action = 'store',
+        type = 'int',
+        dest = 'rest_time',
+        help = 'Define the time of each rest round',
+        default = 300
+    )
+    return parser.parse_args()
 
 if __name__ == '__main__':
-    timer = Timer(1500, 300)
+    options, args = option_parser()
+    timer = Timer(options.work_time, options.rest_time)
     ui = UserInterface(timer)
     main()
 
