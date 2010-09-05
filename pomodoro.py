@@ -68,7 +68,7 @@ starts your rest time.
         type = 'int',
         dest = 'work_time',
         help = 'Define the time of each work round',
-        default = 300
+        default = 1500
     )
 
     parser.add_option(
