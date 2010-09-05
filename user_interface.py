@@ -31,20 +31,9 @@ class UserInterface(object):
     def _create_menu(self):
         self.menu = gtk.Menu()
 
-        self.start_item = gtk.ImageMenuItem(gtk.STOCK_MEDIA_PLAY)
-        self.start_item.connect('activate', self.start_timer)
-
-        self.stop_item = gtk.ImageMenuItem(gtk.STOCK_MEDIA_STOP)
-        self.stop_item.connect('activate', self.pause_timer)
-
         self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
-        self.separator = gtk.MenuItem()
-
-        self.menu.append(self.start_item)
-        self.menu.append(self.stop_item)
-        self.menu.append(self.separator)
         self.menu.append(self.quit_item)
         self.status_icon.connect('popup-menu', self._show_menu, self.menu)
 
