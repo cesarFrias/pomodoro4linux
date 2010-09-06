@@ -104,9 +104,6 @@ class UserInterface(object):
         self.dialog.set_default_size(180, 120)
         self.dialog.set_keep_above(True)
         self.dialog.set_icon_from_file(WORK_ICON)
-        #self.label = gtk.Label('Coffee Break\nRest for %02d:%02d minutes.'
-        #                        % (self.timer.time_left / 60,
-        #                        self.timer.time_left % 60))
         time_left = self.seconds_to_minutes(self.timer.time_left)
         label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
         self.label = gtk.Label(label)
