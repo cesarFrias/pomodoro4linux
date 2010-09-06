@@ -64,11 +64,17 @@ class UserInterface(object):
         self._set_icon()
         self.timer.start()
 
+    def seconds_to_minutes(self, time_left):
+       minutes_left = time_left / 60
+       seconds_left = time_left % 60
+
+       return minutes_left, seconds_left
+
     def update_timer(self):
         if self.current_status == 0 and self.timer.time_left:
-            time_str = 'Pomodoro4linux - %02d:%02d' % (
-                                                     self.timer.time_left / 60,
-                                                     self.timer.time_left % 60)
+            time_left = self.seconds_to_minutes(self.timer.time_left)
+            time_str = 'Pomodoro4linux - %02d:%02d' % (time_left)
+
             self.status_icon.set_tooltip(time_str)
 
         elif self.current_status == 0 and not self.timer.time_left:
@@ -76,9 +82,10 @@ class UserInterface(object):
 
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
-            label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % (
-                                self.timer.time_left / 60,
-                                self.timer.time_left % 60)
+            time_left = self.seconds_to_minutes(self.timer.time_left)
+            label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
+                (time_left)
+
             self._set_label(label_str)
 
         elif self.current_status == 1 and not self.timer.time_left:
