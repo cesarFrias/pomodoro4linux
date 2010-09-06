@@ -24,6 +24,10 @@ class TestUI(TestCase):
         returned = self.ui.seconds_to_minutes(time_left)
         self.assertEqual((16, 40), returned)
 
+    def test_seconds_to_minutes_900(self):
+        time_left = 900
+        returned = self.ui.seconds_to_minutes(time_left)
+        self.assertEqual((15, 0), returned)
 
 if __name__ == '__main__':
     main()
