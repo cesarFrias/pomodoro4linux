@@ -1,7 +1,9 @@
 from unittest import TestCase, main
+from optparse import OptionParser
 
 from user_interface import UserInterface
 from pomodoro import Timer
+from pomodoro_parser import PositiveInteger, option_parser
 
 class TestUI(TestCase):
 
@@ -33,6 +35,11 @@ class TestUI(TestCase):
         time_left = 005
         returned = self.ui.seconds_to_minutes(time_left)
         self.assertEqual((0, 5), returned)
+
+    def test_seconds_to_minutes_150(self):
+        time_left = 150
+        returned = self.ui.seconds_to_minutes(time_left)
+        self.assertEqual((2, 30), returned)
 
 if __name__ == '__main__':
     main()
