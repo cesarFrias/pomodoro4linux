@@ -25,9 +25,9 @@ If you find any bugs or have any suggestions email: cagfrias@gmail.com
 
 from gtk import main
 from gobject import timeout_add
-from optparse import OptionParser
 
 from user_interface import UserInterface
+from pomodoro_parser import PositiveInteger, option_parser
 
 class Timer(object):
     def __init__(self, work_time=1500, rest_time=300):
@@ -52,35 +52,6 @@ class Timer(object):
                 self.time_left = self.work_time
 
         return True
-
-def option_parser():
-    usage = "%prog [OPTIONS]"
-    description = """
-%prog to better manage your time, as soon as your work time ends
-starts your rest time. 
-    """
-
-    parser = OptionParser(usage, description=description)
-    parser.add_option(
-        '-w',
-        '--work',
-        action = 'store',
-        type = 'int',
-        dest = 'work_time',
-        help = 'Define the time of each work round',
-        default = 1500
-    )
-
-    parser.add_option(
-        '-r',
-        '--rest',
-        action = 'store',
-        type = 'int',
-        dest = 'rest_time',
-        help = 'Define the time of each rest round',
-        default = 300
-    )
-    return parser.parse_args()
 
 if __name__ == '__main__':
     options, args = option_parser()
