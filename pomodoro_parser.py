@@ -4,7 +4,7 @@ from copy import copy
 from optparse import Option, OptionParser, OptionValueError
 
 
-def check_positive_integer(option, opt, value):
+def check_positive_integer(value):
     try:
         value = int(value)
         if value > 0:
