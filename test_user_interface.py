@@ -1,9 +1,7 @@
 from unittest import TestCase, main
-from optparse import OptionParser
 
 from user_interface import UserInterface
 from pomodoro import Timer
-from pomodoro_parser import PositiveInteger, option_parser
 
 class TestUI(TestCase):
 
