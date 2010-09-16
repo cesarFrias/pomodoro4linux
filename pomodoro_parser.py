@@ -11,7 +11,7 @@ def check_positive_integer(value):
             return value
         else:
             not_positive_integer()
-    except ValueError:
+    except OptionValueError:
         not_positive_integer()
 
 def not_positive_integer():
