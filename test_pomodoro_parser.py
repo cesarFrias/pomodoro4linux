@@ -7,7 +7,6 @@ class TestParse(TestCase):
 
     def test_raise_with_negative(self):
         number = -5
-        #self.assertRaises(OptionValueError, check_positive_integer, number)
         self.assertRaises(OptionValueError, check_positive_integer, number)
 
     def test_raise_with_0(self):
