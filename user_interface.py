@@ -6,7 +6,6 @@
 
 import os
 import gtk
-from time import sleep
 from gobject import timeout_add
 
 IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
