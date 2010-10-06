@@ -27,9 +27,10 @@ from gtk import main
 from gobject import timeout_add
 
 from user_interface import UserInterface
-from pomodoro_parser import PositiveInteger, option_parser
+from pomodoro_parser import option_parser
 
 class Timer(object):
+    """ Clock of the software """
     def __init__(self, work_time=1500, rest_time=300):
         self.work_time = work_time
         self.rest_time = rest_time
@@ -39,12 +40,15 @@ class Timer(object):
         self.running = False
 
     def start(self):
-       self.running = True
+        """ Starts the clock """
+        self.running = True
 
     def pause(self):
+        """ Pauses the clock """
         self.running = False
 
     def update(self):
+        """ Updates the clock """
         if self.running:
             if self.time_left:
                 self.time_left = self.time_left - 1
