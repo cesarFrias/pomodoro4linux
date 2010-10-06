@@ -112,4 +112,5 @@ class UserInterface(object):
         timeout_add(1000, self.update_timer)
         self.dialog.run()
         self.dialog.destroy()
+        self.timer.time_left = self.timer.work_time
         self.start_timer()
