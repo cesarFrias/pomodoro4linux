@@ -58,8 +58,8 @@ class Timer(object):
         return True
 
 if __name__ == '__main__':
-    options, args = option_parser()
-    timer = Timer(options.work_time, options.rest_time)
-    ui = UserInterface(timer)
+    OPTIONS, ARGS = option_parser()
+    TIMER = Timer(OPTIONS.work_time, OPTIONS.rest_time)
+    UI = UserInterface(TIMER)
     main()
 
