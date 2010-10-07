@@ -12,7 +12,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
-class UserInterface(object):
+class UserInterface:
     """
         Here is the main class of the program.
     """
@@ -25,6 +25,12 @@ class UserInterface(object):
 
         self.status_icon = gtk.StatusIcon()
         self.status_icon.set_from_file(WORK_ICON)
+        self.menu = gtk.Menu()
+        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
+        self.dialog = gtk.Dialog('Pomodoro4linux')
+        time_left = self.seconds_to_minutes(self.timer.time_left)
+        label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
+        self.label = gtk.Label(label)
         self._create_menu()
         self.status_icon.set_visible(True)
 
@@ -36,9 +42,7 @@ class UserInterface(object):
         """
             This method will disappear and will be engaged in __init__
         """
-        self.menu = gtk.Menu()
 
-        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
         self.menu.append(self.quit_item)
@@ -129,13 +133,9 @@ class UserInterface(object):
         """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
-        self.dialog = gtk.Dialog('Pomodoro4linux')
         self.dialog.set_default_size(180, 120)
         self.dialog.set_keep_above(True)
         self.dialog.set_icon_from_file(WORK_ICON)
-        time_left = self.seconds_to_minutes(self.timer.time_left)
-        label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
-        self.label = gtk.Label(label)
         self.dialog.vbox.pack_start(self.label)
         self.label.show_now()
         self.dialog.show_now()
