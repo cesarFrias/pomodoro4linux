@@ -64,10 +64,10 @@ class UserInterface(object):
         self.timer.start()
 
     def seconds_to_minutes(self, time_left):
-       minutes_left = time_left / 60
-       seconds_left = time_left % 60
+        minutes_left = time_left / 60
+        seconds_left = time_left % 60
 
-       return minutes_left, seconds_left
+        return minutes_left, seconds_left
 
     def update_timer(self):
         if self.current_status == 0 and self.timer.time_left:
