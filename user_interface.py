@@ -12,7 +12,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
-class UserInterface:
+class UserInterface(object):
     """
         Here is the main class of the program.
     """
