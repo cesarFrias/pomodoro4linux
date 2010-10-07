@@ -1,8 +1,8 @@
+"""
+    User interface.
+"""
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Desenvolvido por: César Frias
-# Data: 02/08/2010
-
 
 import os
 import gtk
@@ -13,8 +13,13 @@ WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
 class UserInterface(object):
-
+    """
+        Here is the main class of the program.
+    """
     def __init__(self, timer):
+        """
+            Initiate the interface
+        """
         self.timer = timer
         self.current_status = 0
 
@@ -28,6 +33,9 @@ class UserInterface(object):
         timeout_add(1000, self.update_timer)
 
     def _create_menu(self):
+        """
+            This method will disappear and will be engaged in __init__
+        """
         self.menu = gtk.Menu()
 
         self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
@@ -37,10 +45,16 @@ class UserInterface(object):
         self.status_icon.connect('popup-menu', self._show_menu, self.menu)
 
     def _show_menu(self, widget, button, time, data):
+        """
+            This method will disappear and will be engaged in __init__
+        """
         data.show_all()
         data.popup(None, None, None, button, time)
 
     def _set_icon(self):
+        """
+            Sets the correct icon according to the status.
+        """
         if self.current_status == 0:
             icon = WORK_ICON
         else:
@@ -48,28 +62,41 @@ class UserInterface(object):
         self.status_icon.set_from_file(icon)
 
     def _set_label(self, label_str):
-        try:
-            self.label.set_text(label_str)
-        except:
-            pass
+        """
+            Updates the label of the dialog 
+        """
+        self.label.set_text(label_str)
 
     def pause_timer(self, widget=None):
+        """
+            Pauses the timer.
+        """
         self.current_status = 1
         self._set_icon()
         self.timer.pause()
 
     def start_timer(self, widget=None):
+        """
+            Starts the timer.
+        """
         self.current_status = 0
         self._set_icon()
         self.timer.start()
 
     def seconds_to_minutes(self, time_left):
+        """
+            Transforms seconds in minutes.
+        """
         minutes_left = time_left / 60
         seconds_left = time_left % 60
 
         return minutes_left, seconds_left
 
     def update_timer(self):
+        """
+            Updates the timer, sets the tooltip and calls the dialog.
+            Refactor this function.
+        """
         if self.current_status == 0 and self.timer.time_left:
             time_left = self.seconds_to_minutes(self.timer.time_left)
             time_str = 'Pomodoro4linux - %02d:%02d' % (time_left)
@@ -97,6 +124,9 @@ class UserInterface(object):
         return True
 
     def warn_coffe_break(self):
+        """
+           The dialog. 
+        """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
         self.dialog = gtk.Dialog('Pomodoro4linux')
