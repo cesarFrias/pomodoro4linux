@@ -1,5 +1,5 @@
 """
-    test all the classes of pomodoro4linux.
+    Test all the classes of pomodoro4linux.
 """
 
 from unittest import TestCase, main
