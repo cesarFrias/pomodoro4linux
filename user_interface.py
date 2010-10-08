@@ -12,7 +12,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
-class UserInterface(object):
+class UI(object):
     """
         Here is the main class of the program.
     """
@@ -48,9 +48,9 @@ class UserInterface(object):
         self.menu.append(self.quit_item)
         self.status_icon.connect('popup-menu', self._show_menu, self.menu)
 
-    def _show_menu(self, widget, button, time, data):
+    def _show_menu(self, button, time, data):
         """
-            This method will disappear and will be engaged in __init__
+            This method is just for display the menu 
         """
         data.show_all()
         data.popup(None, None, None, button, time)
@@ -71,7 +71,7 @@ class UserInterface(object):
         """
         self.label.set_text(label_str)
 
-    def pause_timer(self, widget=None):
+    def pause_timer(self):
         """
             Pauses the timer.
         """
@@ -79,7 +79,7 @@ class UserInterface(object):
         self._set_icon()
         self.timer.pause()
 
-    def start_timer(self, widget=None):
+    def start_timer(self):
         """
             Starts the timer.
         """

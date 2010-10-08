@@ -5,7 +5,7 @@
 from unittest import TestCase, main
 from optparse import OptionValueError
 
-from pomodoro import Timer, UserInterface
+from pomodoro import Timer, UI
 from pomodoro_parser import check_positive_integer
 
 
@@ -74,7 +74,7 @@ class TestUI(TestCase):
             I cannot take this name better :(
         """
         timer = Timer(300, 200)
-        self.user_interface = UserInterface(timer)
+        self.user_interface = UI(timer)
 
     def test_seconds_to_minutes_1500(self):
         """
