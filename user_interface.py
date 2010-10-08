@@ -28,7 +28,7 @@ class UI(object):
         self.menu = gtk.Menu()
         self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.dialog = gtk.Dialog('Pomodoro4linux')
-        time_left = self.seconds_to_minutes(self.timer.time_left)
+        time_left = seconds_to_minutes(self.timer.time_left)
         label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
         self.label = gtk.Label(label)
         self._create_menu()
@@ -87,14 +87,6 @@ class UI(object):
         self._set_icon()
         self.timer.start()
 
-    def seconds_to_minutes(self, time_left):
-        """
-            Transforms seconds in minutes.
-        """
-        minutes_left = time_left / 60
-        seconds_left = time_left % 60
-
-        return minutes_left, seconds_left
 
     def update_timer(self):
         """
@@ -102,7 +94,7 @@ class UI(object):
             Refactor this function.
         """
         if self.current_status == 0 and self.timer.time_left:
-            time_left = self.seconds_to_minutes(self.timer.time_left)
+            time_left = seconds_to_minutes(self.timer.time_left)
             time_str = 'Pomodoro4linux - %02d:%02d' % (time_left)
 
             self.status_icon.set_tooltip(time_str)
@@ -112,7 +104,7 @@ class UI(object):
 
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
-            time_left = self.seconds_to_minutes(self.timer.time_left)
+            time_left = seconds_to_minutes(self.timer.time_left)
             label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
                 (time_left)
 
@@ -144,3 +136,12 @@ class UI(object):
         self.dialog.destroy()
         self.timer.time_left = self.timer.work_time
         self.start_timer()
+
+def seconds_to_minutes(time_left):
+    """
+        Transforms seconds in minutes.
+    """
+    minutes_left = time_left / 60
+    seconds_left = time_left % 60
+
+    return minutes_left, seconds_left
