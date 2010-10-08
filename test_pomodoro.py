@@ -5,7 +5,8 @@
 from unittest import TestCase, main
 from optparse import OptionValueError
 
-from pomodoro import Timer, UI
+from pomodoro import Timer
+from user_interface import UI, seconds_to_minutes
 from pomodoro_parser import check_positive_integer
 
 
@@ -65,22 +66,13 @@ class TestUI(TestCase):
         self.user_interface = UI(timer)
 
 
-    def test_seconds_to_minutes_1000(self):
+    def test_seconds_to_minutes(self):
         """
-            Test if returns 16 minutes and 40 seconds.
+            Test if returns 8 minutes and 20 seconds.
         """
-        time_left = 1000
-        returned = self.user_interface.seconds_to_minutes(time_left)
-        self.assertEqual((16, 40), returned)
-
-
-    def test_seconds_to_minutes_005(self):
-        """
-            Test if returns zero minutes and 5 seconds.
-        """
-        time_left = 005
-        returned = self.user_interface.seconds_to_minutes(time_left)
-        self.assertEqual((0, 5), returned)
+        time_left = 500
+        returned = seconds_to_minutes(time_left)
+        self.assertEqual((8, 20), returned)
 
 class TestTimer(TestCase):
     """
