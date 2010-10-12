@@ -8,6 +8,8 @@ import os
 import gtk
 from gobject import timeout_add
 
+from utils import seconds_to_minutes
+
 IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
@@ -25,6 +27,8 @@ class UserInterface(object):
 
         self.status_icon = gtk.StatusIcon()
         self.status_icon.set_from_file(WORK_ICON)
+        self.menu = gtk.Menu()
+        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self._create_menu()
         self.status_icon.set_visible(True)
 
@@ -36,9 +40,7 @@ class UserInterface(object):
         """
             This method will disappear and will be engaged in __init__
         """
-        self.menu = gtk.Menu()
 
-        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
         self.menu.append(self.quit_item)
@@ -83,22 +85,13 @@ class UserInterface(object):
         self._set_icon()
         self.timer.start()
 
-    def seconds_to_minutes(self, time_left):
-        """
-            Transforms seconds in minutes.
-        """
-        minutes_left = time_left / 60
-        seconds_left = time_left % 60
-
-        return minutes_left, seconds_left
-
     def update_timer(self):
         """
             Updates the timer, sets the tooltip and calls the dialog.
             Refactor this function.
         """
         if self.current_status == 0 and self.timer.time_left:
-            time_left = self.seconds_to_minutes(self.timer.time_left)
+            time_left = seconds_to_minutes(self.timer.time_left)
             time_str = 'Pomodoro4linux - %02d:%02d' % (time_left)
 
             self.status_icon.set_tooltip(time_str)
@@ -108,7 +101,7 @@ class UserInterface(object):
 
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
-            time_left = self.seconds_to_minutes(self.timer.time_left)
+            time_left = seconds_to_minutes(self.timer.time_left)
             label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
                 (time_left)
 
@@ -133,7 +126,7 @@ class UserInterface(object):
         self.dialog.set_default_size(180, 120)
         self.dialog.set_keep_above(True)
         self.dialog.set_icon_from_file(WORK_ICON)
-        time_left = self.seconds_to_minutes(self.timer.time_left)
+        time_left = seconds_to_minutes(self.timer.time_left)
         label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
         self.label = gtk.Label(label)
         self.dialog.vbox.pack_start(self.label)
