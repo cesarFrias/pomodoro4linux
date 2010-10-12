@@ -136,12 +136,3 @@ class UI(object):
         self.dialog.destroy()
         self.timer.time_left = self.timer.work_time
         self.start_timer()
-
-def seconds_to_minutes(time_left):
-    """
-        Transforms seconds in minutes.
-    """
-    minutes_left = time_left / 60
-    seconds_left = time_left % 60
-
-    return minutes_left, seconds_left
