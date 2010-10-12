@@ -54,7 +54,7 @@ class TestParse(TestCase):
         returned = check_positive_integer('-w', '-r', number)
         self.assertEqual(expected,  returned)
 
-class TestUI(TestCase):
+class TestUtils(TestCase):
     """
         Checks exclusively user interface.
     """
@@ -137,7 +137,20 @@ class TestTimer(TestCase):
         self.test_pomodoro.update()
         self.assertEqual(self.test_pomodoro.time_left, work_time)
 
+class TestUI(TestCase):
+    def setUp(self):
+        timer = Timer()
+        self.UI = UI(timer)
 
+    def test_function_init(self):
+        self.assertEqual(self.UI.current_status, 0)
+        self.assertTrue(self.UI.menu)
+        self.assertTrue(self.UI.quit_item)
+
+    def test_pause_timer(self):
+        current_status = 0
+        self.UI.start_timer()
+        self.assertEqual(current_status, self.UI.current_status)
 
 if __name__ == '__main__':
     main()
