@@ -14,7 +14,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
-class UserInterface(object):
+class UI(object):
     """
         Here is the main class of the program.
     """
@@ -46,9 +46,9 @@ class UserInterface(object):
         self.menu.append(self.quit_item)
         self.status_icon.connect('popup-menu', self._show_menu, self.menu)
 
-    def _show_menu(self, widget, button, time, data):
+    def _show_menu(self, button, time, data):
         """
-            This method will disappear and will be engaged in __init__
+            This method is just for display the menu 
         """
         data.show_all()
         data.popup(None, None, None, button, time)
@@ -69,7 +69,7 @@ class UserInterface(object):
         """
         self.label.set_text(label_str)
 
-    def pause_timer(self, widget=None):
+    def pause_timer(self):
         """
             Pauses the timer.
         """
@@ -77,7 +77,7 @@ class UserInterface(object):
         self._set_icon()
         self.timer.pause()
 
-    def start_timer(self, widget=None):
+    def start_timer(self):
         """
             Starts the timer.
         """
@@ -122,7 +122,6 @@ class UserInterface(object):
         """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
-        self.dialog = gtk.Dialog('Pomodoro4linux')
         self.dialog.set_default_size(180, 120)
         self.dialog.set_keep_above(True)
         self.dialog.set_icon_from_file(WORK_ICON)
@@ -137,3 +136,12 @@ class UserInterface(object):
         self.dialog.destroy()
         self.timer.time_left = self.timer.work_time
         self.start_timer()
+
+def seconds_to_minutes(time_left):
+    """
+        Transforms seconds in minutes.
+    """
+    minutes_left = time_left / 60
+    seconds_left = time_left % 60
+
+    return minutes_left, seconds_left

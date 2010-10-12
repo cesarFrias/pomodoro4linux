@@ -26,7 +26,7 @@ If you find any bugs or have any suggestions email: cagfrias@gmail.com
 from gtk import main
 from gobject import timeout_add
 
-from user_interface import UserInterface
+from user_interface import UI
 from pomodoro_parser import option_parser
 
 class Timer(object):
@@ -60,6 +60,6 @@ class Timer(object):
 if __name__ == '__main__':
     OPTIONS, ARGS = option_parser()
     TIMER = Timer(OPTIONS.work_time, OPTIONS.rest_time)
-    UI = UserInterface(TIMER)
+    UI = UI(TIMER)
     main()
 
