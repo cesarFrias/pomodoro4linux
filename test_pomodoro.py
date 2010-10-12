@@ -7,6 +7,7 @@ from optparse import OptionValueError
 
 from pomodoro import Timer, UserInterface
 from pomodoro_parser import check_positive_integer
+from utils import seconds_to_minutes
 
 
 class TestParse(TestCase):
@@ -81,7 +82,7 @@ class TestUI(TestCase):
             Test if returns 25 minutes and zero seconds.
         """
         time_left = 1500
-        returned = self.user_interface.seconds_to_minutes(time_left)
+        returned = seconds_to_minutes(time_left)
         self.assertEqual((25, 0), returned)
 
 
@@ -90,7 +91,7 @@ class TestUI(TestCase):
             Test if returns 16 minutes and 40 seconds.
         """
         time_left = 1000
-        returned = self.user_interface.seconds_to_minutes(time_left)
+        returned = seconds_to_minutes(time_left)
         self.assertEqual((16, 40), returned)
 
 
@@ -99,7 +100,7 @@ class TestUI(TestCase):
             Test if returns 15 minutes and zero seconds.
         """
         time_left = 900
-        returned = self.user_interface.seconds_to_minutes(time_left)
+        returned = seconds_to_minutes(time_left)
         self.assertEqual((15, 0), returned)
 
 
@@ -108,7 +109,7 @@ class TestUI(TestCase):
             Test if returns zero minutes and 5 seconds.
         """
         time_left = 005
-        returned = self.user_interface.seconds_to_minutes(time_left)
+        returned = seconds_to_minutes(time_left)
         self.assertEqual((0, 5), returned)
 
 
