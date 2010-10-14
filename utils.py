@@ -12,3 +12,10 @@ def seconds_to_minutes(time_left):
     seconds_left = time_left % 60
 
     return minutes_left, seconds_left
+
+def show_menu(self, button, time, data, widget=None):
+    """
+        This method is just for display the menu 
+    """
+    data.show_all()
+    data.popup(None, None, widget, button, time)

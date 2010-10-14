@@ -8,7 +8,7 @@ import os
 import gtk
 from gobject import timeout_add
 
-from utils import seconds_to_minutes
+from utils import seconds_to_minutes, show_menu
 
 IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
@@ -44,14 +44,7 @@ class UI(object):
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
         self.menu.append(self.quit_item)
-        self.status_icon.connect('popup-menu', self._show_menu, self.menu)
-
-    def _show_menu(self, widget, button, time, data):
-        """
-            This method is just for display the menu 
-        """
-        data.show_all()
-        data.popup(None, None, None, button, time)
+        self.status_icon.connect('popup-menu', show_menu, self.menu)
 
     def _set_icon(self):
         """
