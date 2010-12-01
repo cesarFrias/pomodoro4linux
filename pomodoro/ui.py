@@ -11,7 +11,7 @@ from gobject import timeout_add
 from utils.utils import seconds_to_minutes, show_menu
 
 __all__ = ['UI']
-IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'images/')
+IMAGE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../images/')
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
