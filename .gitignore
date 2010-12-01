@@ -2,4 +2,5 @@
 *.swp
 *.swo
 .coverage
-
+*egg*
+setup.py
