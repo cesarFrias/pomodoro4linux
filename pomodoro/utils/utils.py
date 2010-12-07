@@ -13,7 +13,7 @@ def seconds_to_minutes(time_left):
 
     return minutes_left, seconds_left
 
-def show_menu(self, button, time, data, widget=None):
+def show_menu(button, time, data, widget=None):
     """
         This method is just for display the menu 
     """
