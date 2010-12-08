@@ -23,8 +23,8 @@ def not_positive_integer(options, option_used):
         Raises an OptionValueError if at least one of
         the values is not higher than zero
     """
-    raise OptionValueError("""Both arguments {0} must be Positive Integers.
-Option you have used {1}""".format(options, option_used))
+    raise OptionValueError("""Both arguments %s must be Positive Integers.
+Option you have used %s""" % options, option_used)
 
 def option_parser():
     """ Parses the option given by command-line """
