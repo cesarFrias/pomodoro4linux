@@ -3,4 +3,3 @@
 *.swo
 .coverage
 *egg*
-setup.py
