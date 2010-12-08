@@ -31,8 +31,11 @@ class UI(object):
 
         self.status_icon = gtk.StatusIcon()
         self.status_icon.set_from_file(WORK_ICON)
+        self.menu = gtk.Menu()
+        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self._create_menu()
         self.status_icon.set_visible(True)
+
 
         self.dialog = gtk.Dialog('Pomodoro4linux')
         self.label = gtk.Label()
@@ -44,9 +47,7 @@ class UI(object):
         """
             This method will disappear and will be engaged in __init__
         """
-        self.menu = gtk.Menu()
 
-        self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self.quit_item.connect('activate', gtk.main_quit, gtk)
 
         self.menu.append(self.quit_item)
