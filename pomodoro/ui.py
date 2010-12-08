@@ -34,6 +34,8 @@ class UI(object):
         self._create_menu()
         self.status_icon.set_visible(True)
 
+        self.dialog = gtk.Dialog('Pomodoro4linux')
+        self.label = gtk.Label()
         self.start_timer()
 
         timeout_add(1000, self.update_timer)
@@ -119,13 +121,12 @@ class UI(object):
         """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
-        self.dialog = gtk.Dialog('Pomodoro4linux')
         self.dialog.set_default_size(180, 120)
         self.dialog.set_keep_above(True)
         self.dialog.set_icon_from_file(WORK_ICON)
         time_left = seconds_to_minutes(self.timer.time_left)
         label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
-        self.label = gtk.Label(label)
+        self.label.set_text(label)
         self.dialog.vbox.pack_start(self.label)
         self.label.show_now()
         self.dialog.show_now()
