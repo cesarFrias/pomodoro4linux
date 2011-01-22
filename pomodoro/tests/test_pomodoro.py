@@ -152,5 +152,13 @@ class TestUI(TestCase):
         self.UI.start_timer()
         self.assertEqual(current_status, self.UI.current_status)
 
+    def test_rest_icon_with_status_1(self):
+        """
+        Only work icon has tooltip
+        """
+        self.UI.current_status = 1
+        self.UI._set_icon()
+        self.assertFalse(self.UI.status_icon.get_has_tooltip())
+
 if __name__ == '__main__':
     main()
