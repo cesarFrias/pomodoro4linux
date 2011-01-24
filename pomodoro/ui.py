@@ -61,6 +61,7 @@ class UI(object):
             icon = WORK_ICON
         else:
             icon = REST_ICON
+        self.status_icon.set_title(icon.split('/')[-1])
         self.status_icon.set_from_file(icon)
 
     def _set_label(self, label_str):
@@ -97,7 +98,7 @@ class UI(object):
             self.status_icon.set_tooltip(time_str)
 
         elif self.current_status == 0 and not self.timer.time_left:
-            self.warn_coffe_break()
+            self.warn_coffee_break()
 
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
@@ -116,7 +117,7 @@ class UI(object):
 
         return True
 
-    def warn_coffe_break(self):
+    def warn_coffee_break(self):
         """
            The dialog. 
         """

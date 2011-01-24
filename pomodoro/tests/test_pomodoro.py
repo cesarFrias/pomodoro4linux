@@ -138,9 +138,10 @@ class TestTimer(TestCase):
         self.assertEqual(self.test_pomodoro.time_left, work_time)
 
 class TestUI(TestCase):
+
     def setUp(self):
-        timer = Timer()
-        self.UI = UI(timer)
+        self.timer = Timer()
+        self.UI = UI(self.timer)
 
     def test_function_init(self):
         self.assertEqual(self.UI.current_status, 0)
@@ -153,12 +154,51 @@ class TestUI(TestCase):
         self.assertEqual(current_status, self.UI.current_status)
 
     def test_rest_icon_with_status_1(self):
-        """
-        Only work icon has tooltip
-        """
         self.UI.current_status = 1
         self.UI._set_icon()
-        self.assertFalse(self.UI.status_icon.get_has_tooltip())
+        self.assertEqual(self.UI.status_icon.get_title(), 'rest.png')
 
-if __name__ == '__main__':
-    main()
+    def test_work_icon_with_status_0(self):
+        self.UI.current_status = 0
+        self.UI._set_icon()
+        self.assertEqual(self.UI.status_icon.get_title(), 'work.png')
+
+    def test_correct_label_being_shown(self):
+        string = 'Just testing'
+        self.UI._set_label(string)
+        self.assertEqual(self.UI.label.get_label(), string)
+
+    def test_pause_timer_changes_status(self):
+        self.UI.current_status = 0
+        self.UI.pause_timer()
+        self.assertEqual(self.UI.current_status, 1)
+
+    def test_update_timer_changes_status_icon(self):
+        self.UI.current_status = 0
+        self.timer.time_left = 15
+        self.UI.update_timer()
+
+        tooltip_text = self.UI.status_icon.get_tooltip_text()
+        self.assertTrue(tooltip_text.startswith('Pomodoro4linux'))
+
+    def test_update_timer_label_str(self):
+        self.UI.current_status = 1
+        self.timer.time_left = 15
+        self.UI.update_timer()
+
+        label_str = self.UI.label.get_label()
+        self.assertTrue(label_str.startswith('Coffee Break'))
+
+    def test_update_timer_sets_the_dialog_visible(self):
+        self.UI.current_status = 0
+        self.timer.time_left = 0
+        self.UI.update_timer()
+        self.assertTrue(self.UI.dialog.get_visible)
+
+    def test_update_timer_changes_label_str_to_work(self):
+        self.UI.current_status = 1
+        self.timer.time_left = 0
+        self.UI.update_timer()
+
+        label_str = self.UI.label.get_label()
+        self.assertTrue(label_str.startswith('You should'))
