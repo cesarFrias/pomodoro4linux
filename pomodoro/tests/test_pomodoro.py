@@ -181,7 +181,7 @@ class TestUI(TestCase):
         tooltip_text = self.UI.status_icon.get_tooltip_text()
         self.assertTrue(tooltip_text.startswith('Pomodoro4linux'))
 
-    def test_update_timer_label_str(self):
+    def test_update_timer_changes_label_str(self):
         self.UI.current_status = 1
         self.timer.time_left = 15
         self.UI.update_timer()
