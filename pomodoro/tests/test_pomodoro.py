@@ -6,9 +6,9 @@ from unittest import TestCase, main
 from optparse import OptionValueError
 
 from pomodoro.pomodoro import Timer
-from pomodoro.ui import UI, seconds_to_minutes
+from pomodoro.ui import UI
 from pomodoro.utils.parser import check_positive_integer
-from pomodoro.utils.utils import seconds_to_minutes
+from pomodoro.utils.utils import seconds_to_minutes, show_menu
 
 
 class TestParser(TestCase):
