@@ -91,15 +91,18 @@ class UI(object):
             Updates the timer, sets the tooltip and calls the dialog.
             Refactor this function.
         """
+        # Keep working
         if self.current_status == 0 and self.timer.time_left:
             time_left = seconds_to_minutes(self.timer.time_left)
             time_str = 'Pomodoro4linux - %02d:%02d' % (time_left)
 
             self.status_icon.set_tooltip(time_str)
 
+        # Go get some coffee
         elif self.current_status == 0 and not self.timer.time_left:
             self.warn_coffee_break()
 
+        # Keep breaking
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
             time_left = seconds_to_minutes(self.timer.time_left)
@@ -108,6 +111,7 @@ class UI(object):
 
             self._set_label(label_str)
 
+        # Come back to work, lazy boy
         elif self.current_status == 1 and not self.timer.time_left:
             label_str = 'You should be working now!'
             self._set_label(label_str)
