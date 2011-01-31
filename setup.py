@@ -7,7 +7,7 @@ setup(
     name='Pomodoro4linux',
     version='1.0',
     author='César Frias',
-    description = 'Tool for better manage your time',
-    license = 'GPL',
-    packages = ['pomodoro'],
+    description='Tool for better manage your time',
+    license='GPL',
+    packages=['pomodoro'],
 )
