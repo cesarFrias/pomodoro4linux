@@ -18,6 +18,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
 
+
 class UI(object):
     """
         Here is the main class of the program.
@@ -35,7 +36,6 @@ class UI(object):
         self.quit_item = gtk.ImageMenuItem(gtk.STOCK_QUIT)
         self._create_menu()
         self.status_icon.set_visible(True)
-
 
         self.dialog = gtk.Dialog('Pomodoro4linux')
         self.label = gtk.Label()
@@ -66,7 +66,7 @@ class UI(object):
 
     def _set_label(self, label_str):
         """
-            Updates the label of the dialog 
+            Updates the label of the dialog
         """
         self.label.set_text(label_str)
 
@@ -123,7 +123,7 @@ class UI(object):
 
     def warn_coffee_break(self):
         """
-           The dialog. 
+           The dialog.
         """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
