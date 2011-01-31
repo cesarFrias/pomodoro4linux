@@ -2,13 +2,13 @@
     Test all the classes of pomodoro4linux.
 """
 
-from unittest import TestCase, main
+from unittest import TestCase
 from optparse import OptionValueError
 
 from pomodoro.pomodoro import Timer
 from pomodoro.ui import UI
 from pomodoro.utils.parser import check_positive_integer
-from pomodoro.utils.utils import seconds_to_minutes, show_menu
+from pomodoro.utils.utils import seconds_to_minutes
 
 
 class TestParser(TestCase):

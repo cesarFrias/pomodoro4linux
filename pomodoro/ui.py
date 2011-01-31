@@ -61,7 +61,7 @@ class UI(object):
             icon = WORK_ICON
         else:
             icon = REST_ICON
-        self.status_icon.set_title(icon.split('/')[-1])
+        #self.status_icon.set_title(icon.split('/')[-1])
         self.status_icon.set_from_file(icon)
 
     def _set_label(self, label_str):
