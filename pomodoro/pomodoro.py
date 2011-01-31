@@ -29,6 +29,7 @@ from gobject import timeout_add
 from ui import UI
 from utils.parser import option_parser
 
+
 class Timer(object):
     """ Clock of the software """
     def __init__(self, work_time=1500, rest_time=300):
@@ -62,4 +63,3 @@ if __name__ == '__main__':
     TIMER = Timer(OPTIONS.work_time, OPTIONS.rest_time)
     UI = UI(TIMER)
     main()
-
