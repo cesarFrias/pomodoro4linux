@@ -133,6 +133,7 @@ class UI(object):
         time_left = seconds_to_minutes(self.timer.time_left)
         label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
         self.label.set_text(label)
+        self.dialog.vbox.pack_start(self.label)
         self.label.show_now()
         self.dialog.show_now()
         timeout_add(1000, self.update_timer)
