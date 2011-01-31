@@ -1,6 +1,10 @@
 # -*- encoding:utf-8 -*-
 #!/usr/bin/env python
 
+"""
+    Project properties
+"""
+
 from setuptools import setup
 
 setup(
