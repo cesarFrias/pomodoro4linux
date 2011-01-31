@@ -1,0 +1,14 @@
+pomodoro4linux is a way to get the most out of time management. Turn time into a valuable ally to accomplish
+what we want to do and chart continuous improvement in the way we do it, in other words, a tool to manage
+your time better.
+
+The basic steps of pomodoro4linux:
+    1. Choose a task to be accomplished.
+    2. Run pomodoro4linux. (See more in How-to).
+    3. Work on this task until the pomodoro4linux show you a short notice.
+    4. Take a break for 5 minutes.
+    5. Every 4 rounds of pomodoro4linux, take a longer break.
+
+How-to
+    Run the script pomodoro.py, like:
+        python ~/pomodoro4linux/pomodoro/pomodoro.py
