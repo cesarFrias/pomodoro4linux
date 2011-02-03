@@ -37,8 +37,17 @@ class UI(object):
         self._create_menu()
         self.status_icon.set_visible(True)
 
-        self.dialog = gtk.Dialog('Pomodoro4linux')
-        self.label = gtk.Label()
+        self.dialog = gtk.MessageDialog(
+            parent=None,
+            flags=gtk.DIALOG_MODAL,
+            type=gtk.MESSAGE_WARNING,
+            buttons=gtk.BUTTONS_NONE)
+
+        self.image = gtk.Image()
+        self.image.set_from_file(REST_ICON)
+        self.dialog.set_title('Pomodoro4linux')
+        self.dialog.set_image(self.image)
+        self.dialog.set_keep_above(True)
         self.start_timer()
 
         timeout_add(1000, self.update_timer)
@@ -63,12 +72,6 @@ class UI(object):
             icon = REST_ICON
         self.status_icon.set_title(icon.split('/')[-1])
         self.status_icon.set_from_file(icon)
-
-    def _set_label(self, label_str):
-        """
-            Updates the label of the dialog
-        """
-        self.label.set_text(label_str)
 
     def pause_timer(self):
         """
@@ -100,6 +103,7 @@ class UI(object):
 
         # Go get some coffee
         elif self.current_status == 0 and not self.timer.time_left:
+            self.image.set_from_file(REST_ICON)
             self.warn_coffee_break()
 
         # Keep breaking
@@ -108,13 +112,13 @@ class UI(object):
             time_left = seconds_to_minutes(self.timer.time_left)
             label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
                 (time_left)
-
-            self._set_label(label_str)
+            self.dialog.set_markup(label_str)
 
         # Come back to work, lazy boy
         elif self.current_status == 1 and not self.timer.time_left:
             label_str = 'You should be working now!'
-            self._set_label(label_str)
+            self.image.set_from_file(WORK_ICON)
+            self.dialog.set_markup(label_str)
             self.pause_timer()
             self.current_status = 0
             self.timer.time_left = self.timer.work_time
@@ -127,17 +131,13 @@ class UI(object):
         """
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
-        self.dialog.set_default_size(180, 120)
-        self.dialog.set_keep_above(True)
-        self.dialog.set_icon_from_file(WORK_ICON)
         time_left = seconds_to_minutes(self.timer.time_left)
-        label = 'Coffee Break\nRest for %02d:%02d minutes.' % (time_left)
-        self.label.set_text(label)
-        self.dialog.vbox.pack_start(self.label)
-        self.label.show_now()
-        self.dialog.show_now()
+        label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
+            (time_left)
+        self.dialog.set_markup(label_str)
+        self.dialog.show_all()
         timeout_add(1000, self.update_timer)
         self.dialog.run()
-        self.dialog.destroy()
+        self.dialog.hide()
         self.timer.time_left = self.timer.work_time
         self.start_timer()
