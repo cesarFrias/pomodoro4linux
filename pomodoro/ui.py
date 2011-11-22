@@ -41,7 +41,7 @@ class UI(object):
             parent=None,
             flags=gtk.DIALOG_MODAL,
             type=gtk.MESSAGE_WARNING,
-            buttons=gtk.BUTTONS_NONE)
+            buttons=gtk.BUTTONS_CLOSE)
 
         self.image = gtk.Image()
         self.image.set_from_file(REST_ICON)
