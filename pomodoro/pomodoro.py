@@ -32,9 +32,11 @@ from utils.parser import option_parser
 
 class Timer(object):
     """ Clock of the software """
-    def __init__(self, work_time=1500, rest_time=300):
+    def __init__(self, work_time=1500, rest_time=300, long_rest_time=900, max_break_count=4):
         self.work_time = work_time
         self.rest_time = rest_time
+        self.long_rest_time = long_rest_time
+        self.max_break_count = max_break_count
         self.time_left = self.work_time
 
         timeout_add(1000, self.update)
@@ -60,6 +62,6 @@ class Timer(object):
 
 if __name__ == '__main__':
     OPTIONS, ARGS = option_parser()
-    TIMER = Timer(OPTIONS.work_time, OPTIONS.rest_time)
+    TIMER = Timer(OPTIONS.work_time, OPTIONS.rest_time, OPTIONS.long_rest_time, OPTIONS.max_break_count)
     UI = UI(TIMER)
     main()

@@ -54,8 +54,28 @@ def option_parser():
         action='store',
         type='positiveInteger',
         dest='rest_time',
-        help='Define the time of each rest round',
+        help='Define the time of coffee rest round',
         default=300
+    )
+
+    parser.add_option(
+        '-l',
+        '--long',
+        action='store',
+        type='positiveInteger',
+        dest='long_rest_time',
+        help='Define the time of long rest round',
+        default=900
+    )
+
+    parser.add_option(
+        '-c',
+        '--count',
+        action='store',
+        type='positiveInteger',
+        dest='max_break_count',
+        help='Define the number of work/coffee round between two long rest round',
+        default=4
     )
     return parser.parse_args()
 

@@ -17,6 +17,7 @@ IMAGE_DIR = os.path.join(os.path.abspath(
 )
 WORK_ICON = os.path.join(IMAGE_DIR, 'work.png')
 REST_ICON = os.path.join(IMAGE_DIR, 'rest.png')
+LONG_REST_ICON = os.path.join(IMAGE_DIR, 'long-rest.png')
 
 
 class UI(object):
@@ -29,6 +30,7 @@ class UI(object):
         """
         self.timer = timer
         self.current_status = 0
+        self.break_count = 0
 
         self.status_icon = gtk.StatusIcon()
         self.status_icon.set_from_file(WORK_ICON)
@@ -69,7 +71,10 @@ class UI(object):
         if self.current_status == 0:
             icon = WORK_ICON
         else:
-            icon = REST_ICON
+            if self.break_count == 0:
+                icon = LONG_REST_ICON
+            else:
+                icon = REST_ICON
         self.status_icon.set_title(icon.split('/')[-1])
         self.status_icon.set_from_file(icon)
 
@@ -103,15 +108,25 @@ class UI(object):
 
         # Go get some coffee
         elif self.current_status == 0 and not self.timer.time_left:
-            self.image.set_from_file(REST_ICON)
-            self.warn_coffee_break()
+            if self.break_count < self.timer.max_break_count:
+                self.image.set_from_file(REST_ICON)
+                self.break_count += 1
+                self.warn_coffee_break()
+            else:
+                self.image.set_from_file(LONG_REST_ICON)
+                self.break_count = 0
+                self.warn_long_break()
 
         # Keep breaking
         elif self.current_status == 1 and self.timer.time_left:
             self._set_icon()
             time_left = seconds_to_minutes(self.timer.time_left)
-            label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
-                (time_left)
+            if self.break_count == 0:
+                label_str = 'Long Break\nRest for %02d:%02d minutes.' % \
+                    (time_left)
+            else:
+                label_str = 'Coffee Break\nRest for %02d:%02d minutes. (%d/%d)' % \
+                    (time_left[0],time_left[1],self.break_count,self.timer.max_break_count)
             self.dialog.set_markup(label_str)
 
         # Come back to work, lazy boy
@@ -132,7 +147,24 @@ class UI(object):
         self.current_status = 1
         self.timer.time_left = self.timer.rest_time
         time_left = seconds_to_minutes(self.timer.time_left)
-        label_str = 'Coffee Break\nRest for %02d:%02d minutes.' % \
+        label_str = 'Coffee Break\nRest for %02d:%02d minutes. (%d/%d)' % \
+            (time_left[0],time_left[1],self.break_count,self.timer.max_break_count)
+        self.dialog.set_markup(label_str)
+        self.dialog.show_all()
+        timeout_add(1000, self.update_timer)
+        self.dialog.run()
+        self.dialog.hide()
+        self.timer.time_left = self.timer.work_time
+        self.start_timer()
+
+    def warn_long_break(self):
+        """
+           The dialog.
+        """
+        self.current_status = 1
+        self.timer.time_left = self.timer.long_rest_time
+        time_left = seconds_to_minutes(self.timer.time_left)
+        label_str = 'Long Break\nRest for %02d:%02d minutes.' % \
             (time_left)
         self.dialog.set_markup(label_str)
         self.dialog.show_all()
